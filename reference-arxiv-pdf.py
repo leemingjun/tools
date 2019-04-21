@@ -1,7 +1,7 @@
 #!/usr/local/bin/python3
 # -*- coding: UTF-8 -*-
 
-import urllib.request
+import argparse
 
 
 def download_arxiv_pdf(reference_content):
@@ -45,4 +45,11 @@ def download_reference(txt_file):
     download_arxiv_pdf(content)
 
 
-download_reference('reference.txt')
+parser = argparse.ArgumentParser(
+    description='解析论文中的参考文件部分内容，生成arXiv网站论文下载链接')
+parser.add_argument('filename',  nargs='+',
+                    help='包含参考文件内容的文本文件名！')
+
+args = parser.parse_args()
+print("处理文本文件名：{}".format(args.filename))
+download_reference(args.filename[0])
